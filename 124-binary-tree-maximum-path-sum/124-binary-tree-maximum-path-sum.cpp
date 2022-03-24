@@ -11,19 +11,19 @@
  */
 class Solution {
 public:
-    int maxPathcovered(TreeNode* node, int &maxi){
-        if(node==NULL) return 0;
-        int left=max(0,maxPathcovered(node->left,maxi));
-        int right=max(0,maxPathcovered(node->right,maxi));
-        maxi=max(maxi,left+right+node->val);
-        return max(left,right)+node->val;
+    int path(TreeNode* root,int &maxi)
+    {
+        if(root==NULL) return 0;
+        int lh=max(0,path(root->left,maxi));
+        int rh=max(0,path(root->right,maxi));
+        maxi=max(maxi,lh+rh+root->val);
+        return max(lh,rh)+root->val;
         
     }
     int maxPathSum(TreeNode* root) {
         int maxi=INT_MIN;
-        maxPathcovered(root,maxi);
+        path(root,maxi);
         return maxi;
+
     }
-    
-    
 };
