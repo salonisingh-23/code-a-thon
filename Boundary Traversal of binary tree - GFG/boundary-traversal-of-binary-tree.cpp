@@ -105,62 +105,60 @@ struct Node
 
 class Solution {
 public:
-
-
-
- void traverseLeft(Node *root,vector<int>& ans){
-       if((root==NULL)||(root->left==NULL && root->right==NULL)){
-           return;
-       }
-       ans.push_back(root->data);
-       if(root->left){
-           traverseLeft(root->left,ans);
-       }
-       else{
-          traverseLeft(root->right,ans); 
-       }
-       
-   }
-   void traverseleaf(Node *root,vector<int>& ans){
-      if(root==NULL) {
-          return;
-      }
-      if(root->left==NULL && root->right==NULL){
-          ans.push_back(root->data);
-           return;
-       }
-       traverseleaf(root->left,ans);
-       traverseleaf(root->right,ans);
-   }
+void leftboundary(Node *root,vector<int> &res)
+{
+      if((root==NULL)||(root->left==NULL&&root->right==NULL)) 
+    return;
+    res.push_back(root->data);
+    if(root->left)
+    {
+       leftboundary(root->left,res);
+    }
+    else if(root->right)
+    {
+      leftboundary(root->right,res);
+    }
+}
+void rightboundary(Node *root,vector<int> &res)
+{    if((root==NULL)||(root->left==NULL&&root->right==NULL)) 
+       return;
+    
+    if(root->right)
+    {
+         rightboundary(root->right,res);
+        
+    }
+    else if(root->left)
+    {
+        rightboundary(root->left,res);
+    }
+    res.push_back(root->data);
+}
+ void leaves(Node *root, vector<int> &res)
+ {
+     if(root==NULL) return;
    
-   void traverseRight(Node *root,vector<int>& ans){
-       if((root==NULL)||(root->left==NULL && root->right==NULL)){
-           return;
-       }
-       
-       if(root->right){
-           traverseRight(root->right,ans);
-       }
-       else{
-          traverseRight(root->left,ans); 
-       }
-       ans.push_back(root->data);
-       
-   }
-   vector <int> boundary(Node *root)
-   {
-       //Your code here
-       vector<int> ans;
-       if(root==NULL){
-           return ans;
-       }
-       ans.push_back(root->data);
-       traverseLeft(root->left,ans);
-       traverseleaf(root->left,ans);
-       traverseleaf(root->right,ans);
-       traverseRight(root->right,ans);
-       return ans;
-   }
+    if(root->left==NULL&&root->right==NULL)
+    {
+        res.push_back(root->data);
+        return;
+    }
+    leaves(root->left,res);
+    leaves(root->right,res);
+ }
+    vector <int> boundary(Node *root)
+    {
+        //Your code here
+        vector<int> res;
+        if(root==NULL) return res;
+        
+        res.push_back(root->data);
+        leftboundary(root->left,res);
+        leaves(root->left,res);
+        leaves(root->right,res);
+        rightboundary(root->right,res);
+        return res;
+        }
 };
 
 // { Driver Code Starts.
