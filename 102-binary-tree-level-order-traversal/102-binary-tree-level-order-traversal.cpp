@@ -16,6 +16,7 @@ public:
         vector<vector<int>> ans;
         if(root==NULL) return ans;
         queue<TreeNode*> q;
+         TreeNode *node;
         q.push(root);
         while(!q.empty())
         {
@@ -23,7 +24,7 @@ public:
             vector<int> level;
             for(int i=0;i<size;i++)
             {
-                TreeNode *node=q.front();
+                node=q.front();
                 q.pop();
                 if(node->left!=NULL) q.push(node->left);
                 if(node->right!=NULL) q.push(node->right);
